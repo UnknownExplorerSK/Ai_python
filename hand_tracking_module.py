@@ -22,14 +22,18 @@ class handDetector():
             for handLms in results.multi_hand_landmarks:
                 if draw:
                     self.mpDraw.draw_landmarks(img, handLms, self.mpHands.HAND_CONNECTIONS)
+        return img 
+
 
 def main():
     pTime = 0
     cTime = 0
     cap = cv2.VideoCapture(0)
-
+    detector = handDetector()
     while True:
        success, img = cap.read()
+       img = detector.findHands(img)
+
        cTime = time.time()
        fps = 1/(cTime-pTime)
        pTime = cTime
